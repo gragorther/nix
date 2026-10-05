@@ -19,7 +19,10 @@ in
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "26.05";
-  home.packages = with pkgs; [ bitwarden-desktop ];
+  home.packages = with pkgs; [
+    bitwarden-desktop
+    feishin
+  ];
   programs = {
     git = {
       enable = true;
@@ -28,7 +31,7 @@ in
           name = osConfig.users.users.gregor.description;
           email = me.email;
         };
-        safe.directory = ["/etc/nixos"];
+        safe.directory = [ "/etc/nixos" ];
       };
     };
     vscode = {
