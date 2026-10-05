@@ -22,6 +22,20 @@ in
   home.packages = with pkgs; [
     bitwarden-desktop
     feishin
+    openssl
+    signal-desktop
+    gparted
+    prismlauncher
+    whois
+    ghc
+    cabal-install
+    haskell-language-server
+    haskellPackages.hlint
+    libreoffice-qt
+    hunspell
+    mpv
+    nixfmt
+
   ];
   programs = {
     git = {
