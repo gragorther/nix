@@ -2,7 +2,7 @@
   config,
   pkgs,
   osConfig,
- # inputs,
+  # inputs,
   ...
 }:
 let
@@ -11,7 +11,7 @@ let
   };
 in
 {
-#  imports = [ pkgs.prismix.homeModules.default ];
+  #  imports = [ pkgs.prismix.homeModules.default ];
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
@@ -74,7 +74,12 @@ in
         minecraft.version = "26.3";
         icon = "creeper";
         group = "Releases";
-
+        servers = [
+          {
+            ip = "minecraft.gregtech.eu";
+            name = "GregTech";
+          }
+        ];
         mod = {
           loader = {
             name = "fabric";
