@@ -11,6 +11,7 @@ let
   };
 in
 {
+  imports = [./programs];
   #  imports = [ pkgs.prismix.homeModules.default ];
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -37,7 +38,7 @@ in
     hunspell
     mpv
     nixfmt
-
+    nixd
   ];
   programs = {
     git = {
@@ -59,6 +60,15 @@ in
     firefox = {
       enable = true;
     };
+    thunderbird = {
+      enable = true;
+      profiles.main = {
+        isDefault = true;
+        settings = {
+          "extensions.autoDisableScopes" = 0;
+        };
+      };
+    };
     prismlauncher = {
       enable = true;
 
@@ -70,10 +80,10 @@ in
         };
       };
 
-      instances.main = {
+      instances.sigma = {
         minecraft.version = "26.3";
         icon = "creeper";
-        group = "Releases";
+        #group = "Releases";
         servers = [
           {
             ip = "minecraft.gregtech.eu";

@@ -18,7 +18,7 @@
   nixpkgs.config.allowUnfree = true;
   #  programs.firefox.enable = true;
   programs.steam.enable = true;
-  programs.thunderbird.enable = true;
+#  programs.thunderbird.enable = true;
   programs.localsend.enable = true;
   programs.gamemode.enable = true;
   services.flatpak.enable = true;
