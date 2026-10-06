@@ -2,16 +2,17 @@
   config,
   pkgs,
   osConfig,
-  # inputs,
+  lib,
   ...
 }:
 let
   me = {
     email = "gregor@gregtech.eu";
   };
+#  lib = pkgs.lib; 
 in
 {
-  imports = [./programs];
+  imports = lib.filesystem.listFilesRecursive ./modules;
   #  imports = [ pkgs.prismix.homeModules.default ];
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -51,24 +52,18 @@ in
         safe.directory = [ "/etc/nixos" ];
       };
     };
-    vscode = {
-      enable = true;
-      #   haskell = {
-      #     enable = true;
-      #   };
-    };
     firefox = {
       enable = true;
     };
-    thunderbird = {
-      enable = true;
-      profiles.main = {
-        isDefault = true;
-        settings = {
-          "extensions.autoDisableScopes" = 0;
-        };
-      };
-    };
+#    thunderbird = {
+#      enable = true;
+#      profiles.main = {
+#        isDefault = true;
+#        settings = {
+#          "extensions.autoDisableScopes" = 0;
+#        };
+#      };
+#    };
     prismlauncher = {
       enable = true;
 
