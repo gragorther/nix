@@ -25,7 +25,7 @@ in
     openssl
     signal-desktop
     gparted
-    prismlauncher
+#    prismlauncher
     whois
     ghc
     cabal-install
@@ -57,7 +57,30 @@ in
     firefox = {
       enable = true;
     };
+    prismlauncher = {
+      enable = true;
 
+      config.java = {
+        path = "${pkgs.jdk25}/bin/java";
+        mem = {
+          min = 4096;
+          max = 15000;
+        };
+      };
+
+      instances.main = {
+        minecraft.version = "26.3";
+        icon = "creeper";
+        group = "Releases";
+
+        mod = {
+          loader = {
+            name = "fabric";
+            version = "0.19.5";
+          };
+        };
+      };
+    };
   };
   programs.bash.enable = true;
   home.sessionVariables = {
