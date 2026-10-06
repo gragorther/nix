@@ -2,6 +2,7 @@
   config,
   pkgs,
   osConfig,
+ # inputs,
   ...
 }:
 let
@@ -10,6 +11,7 @@ let
   };
 in
 {
+#  imports = [ pkgs.prismix.homeModules.default ];
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
@@ -25,7 +27,7 @@ in
     openssl
     signal-desktop
     gparted
-#    prismlauncher
+    #    prismlauncher
     whois
     ghc
     cabal-install

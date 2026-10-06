@@ -27,23 +27,23 @@
     syntaxHighlight = true;
   };
 
-#  environment.systemPackages = with pkgs; [
-#    openssl
-#    signal-desktop
-#    gparted
-#    prismlauncher
-#    whois
-#    ghc
-#    cabal-install
-#    haskell-language-server
-#    haskellPackages.hlint
-#    libreoffice-qt
-#    hunspell
-#    mpv
-#    nixfmt
-#    #    hunspellDicts.sl_SI
-#    #    hunspellDicts.en_GB
-#  ];
+  #  environment.systemPackages = with pkgs; [
+  #    openssl
+  #    signal-desktop
+  #    gparted
+  #    prismlauncher
+  #    whois
+  #    ghc
+  #    cabal-install
+  #    haskell-language-server
+  #    haskellPackages.hlint
+  #    libreoffice-qt
+  #    hunspell
+  #    mpv
+  #    nixfmt
+  #    #    hunspellDicts.sl_SI
+  #    #    hunspellDicts.en_GB
+  #  ];
 
   systemd.sleep.settings.Sleep = {
     AllowSuspend = "no";

@@ -18,6 +18,10 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    prismix = {
+      url = "git+https://codeberg.org/OliMoli/prismix.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
@@ -25,6 +29,7 @@
       nixpkgs,
       home-manager,
       plasma-manager,
+      prismix,
       ...
     }:
     {
@@ -39,11 +44,15 @@
               useUserPackages = true;
               extraSpecialArgs = { inherit inputs; }; # If you want access to inputs in your home.nix
               users.gregor = ./home.nix; # replace <USERNAME> with your actual username
-              sharedModules = [ plasma-manager.homeModules.plasma-manager ];
+              sharedModules = [ plasma-manager.homeModules.plasma-manager prismix.homeModules.default];
             };
           }
 
         ];
+#      extraSpecialArgs = {
+#        # This can also be useful
+#        inherit inputs;
+#      };
       };
     };
 }
