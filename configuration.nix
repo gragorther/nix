@@ -18,7 +18,7 @@
   nixpkgs.config.allowUnfree = true;
   #  programs.firefox.enable = true;
   programs.steam.enable = true;
-#  programs.thunderbird.enable = true;
+  #  programs.thunderbird.enable = true;
   programs.localsend.enable = true;
   programs.gamemode.enable = true;
   services.flatpak.enable = true;
@@ -26,7 +26,7 @@
     enable = true;
     syntaxHighlight = true;
   };
-
+  environment.systemPackages = with pkgs; [ pinentry-qt ];
   #  environment.systemPackages = with pkgs; [
   #    openssl
   #    signal-desktop
@@ -45,8 +45,25 @@
   #    #    hunspellDicts.en_GB
   #  ];
 
+  sops = {
+    hostPubKey = "age1eecfk9ncl6v76s49k72jegxheje5u5shf7tchll9w4pwdphjtgwsyas4pt";
+    defaultSopsFile = ./secrets.yaml;
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  };
+  sops.secrets."dav" = {
+    collect = {
+      rbw.id = "Radicale";
+    };
+    owner = "gregor";
+    mode = "0400";
+  };
+  sops.secrets."email" = {
+    collect.rbw.id = "purelymail.com";
+    owner = "gregor";
+    mode = "0400";
+  };
   systemd.sleep.settings.Sleep = {
-    AllowSuspend = "no";
+    AllowSuspend = "yes";
     AllowHibernation = "no";
     AllowHybridSleep = "no";
     AllowSuspendThenHibernate = "no";

@@ -22,6 +22,12 @@
       url = "git+https://codeberg.org/OliMoli/prismix.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    sopsidy.url = "github:timewave-computer/sopsidy";
+    sopsidy.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     inputs@{
@@ -30,12 +36,21 @@
       home-manager,
       plasma-manager,
       prismix,
+      sopsidy,
       ...
     }:
+    let
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+      };
+    in
     {
+
       # NOTE: 'nixos' is the default hostname
       nixosConfigurations.gregor-nix = nixpkgs.lib.nixosSystem {
         modules = [
+          inputs.sops-nix.nixosModules.default
+          inputs.sopsidy.nixosModules.default
           ./configuration.nix
           home-manager.nixosModules.default
           {
@@ -44,15 +59,35 @@
               useUserPackages = true;
               extraSpecialArgs = { inherit inputs; }; # If you want access to inputs in your home.nix
               users.gregor = ./home.nix; # replace <USERNAME> with your actual username
-              sharedModules = [ plasma-manager.homeModules.plasma-manager prismix.homeModules.default];
+              sharedModules = [
+                plasma-manager.homeModules.plasma-manager
+                prismix.homeModules.default
+                ({ pkgs, ... }: {
+                  home.stateVersion = "26.05";
+                  programs.rbw = {
+                    enable = true;
+                    settings = {
+                      email = "gregor@gregtech.eu";
+                      base_url = "https://vaultwarden.gregtech.eu";
+                      pinentry = pkgs.pinentry-qt;
+                    };
+                  };
+                })
+              ];
             };
           }
 
         ];
-#      extraSpecialArgs = {
-#        # This can also be useful
-#        inherit inputs;
-#      };
+
+        #      extraSpecialArgs = {
+        #        # This can also be useful
+        #        inherit inputs;
+        #      };
+      };
+      packages.x86_64-linux.collect-secrets = sopsidy.lib.buildSecretsCollector {
+        inherit pkgs;
+        hosts = self.nixosConfigurations;
       };
     };
+
 }
