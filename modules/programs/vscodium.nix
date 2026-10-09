@@ -1,4 +1,9 @@
-{...}: {
+{ pkgs, ... }: {
   programs.vscodium = {
-    enable = true;};
+    enable = true;
+    profiles.default = {
+      extensions = [ pkgs.vscode-extensions.jnoortheen.nix-ide ];
+    };
+
+  };
 }
