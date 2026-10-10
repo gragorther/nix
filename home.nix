@@ -9,7 +9,7 @@ let
   me = {
     email = "gregor@gregtech.eu";
   };
-#  lib = pkgs.lib; 
+  #  lib = pkgs.lib;
 in
 {
   imports = lib.filesystem.listFilesRecursive ./modules;
@@ -24,6 +24,8 @@ in
   # changes in each release.
   home.stateVersion = "26.05";
   home.packages = with pkgs; [
+    ncdu
+    ente-desktop
     bitwarden-cli
     bitwarden-desktop
     feishin
@@ -57,15 +59,15 @@ in
     firefox = {
       enable = true;
     };
-#    thunderbird = {
-#      enable = true;
-#      profiles.main = {
-#        isDefault = true;
-#        settings = {
-#          "extensions.autoDisableScopes" = 0;
-#        };
-#      };
-#    };
+    #    thunderbird = {
+    #      enable = true;
+    #      profiles.main = {
+    #        isDefault = true;
+    #        settings = {
+    #          "extensions.autoDisableScopes" = 0;
+    #        };
+    #      };
+    #    };
   };
   programs.bash.enable = true;
   home.sessionVariables = {
