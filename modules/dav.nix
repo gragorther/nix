@@ -86,7 +86,15 @@ in
     )
     //
       builtins.mapAttrs
-        (name: value: addRequiredFieldsToCalendar (lib.recursiveUpdate { remote.type = "http"; } value))
+        (
+          name: value:
+          addRequiredFieldsToCalendar (
+            lib.recursiveUpdate {
+              remote.type = "http";
+              thunderbird.readOnly = true;
+            } value
+          )
+        )
         {
           urnik = {
             remote = {

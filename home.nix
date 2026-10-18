@@ -24,6 +24,7 @@ in
   # changes in each release.
   home.stateVersion = "26.05";
   home.packages = with pkgs; [
+#    logseq
     ncdu
     ente-desktop
     bitwarden-cli
