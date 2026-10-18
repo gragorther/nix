@@ -43,41 +43,47 @@
       pkgs = import nixpkgs {
         system = "x86_64-linux";
       };
+      homeManagerModule = {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          extraSpecialArgs = { inherit inputs; }; # If you want access to inputs in your home.nix
+          users.gregor = ./home.nix; # replace <USERNAME> with your actual username
+          sharedModules = [
+            plasma-manager.homeModules.plasma-manager
+            prismix.homeModules.default
+            ({ pkgs, ... }: {
+              home.stateVersion = "26.05";
+              programs.rbw = {
+                enable = true;
+                settings = {
+                  email = "gregor@gregtech.eu";
+                  base_url = "https://vaultwarden.gregtech.eu";
+                  pinentry = pkgs.pinentry-qt;
+                };
+              };
+            })
+          ];
+        };
+      };
+      sharedModules = [
+        inputs.sops-nix.nixosModules.default
+        inputs.sopsidy.nixosModules.default
+        ./configuration.nix
+        home-manager.nixosModules.default
+        homeManagerModule
+      ];
     in
     {
-
+      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+        modules = [ ./hosts/laptop ] ++ sharedModules;
+      };
       # NOTE: 'nixos' is the default hostname
       nixosConfigurations.gregor-nix = nixpkgs.lib.nixosSystem {
         modules = [
-          inputs.sops-nix.nixosModules.default
-          inputs.sopsidy.nixosModules.default
-          ./configuration.nix
-          home-manager.nixosModules.default
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = { inherit inputs; }; # If you want access to inputs in your home.nix
-              users.gregor = ./home.nix; # replace <USERNAME> with your actual username
-              sharedModules = [
-                plasma-manager.homeModules.plasma-manager
-                prismix.homeModules.default
-                ({ pkgs, ... }: {
-                  home.stateVersion = "26.05";
-                  programs.rbw = {
-                    enable = true;
-                    settings = {
-                      email = "gregor@gregtech.eu";
-                      base_url = "https://vaultwarden.gregtech.eu";
-                      pinentry = pkgs.pinentry-qt;
-                    };
-                  };
-                })
-              ];
-            };
-          }
-
-        ];
+          ./hosts/pc
+        ]
+        ++ sharedModules;
 
         #      extraSpecialArgs = {
         #        # This can also be useful

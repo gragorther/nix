@@ -11,10 +11,6 @@
 
 {
 
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-  ];
   nixpkgs.config.allowUnfree = true;
   #  programs.firefox.enable = true;
   programs.steam.enable = true;
@@ -100,8 +96,6 @@
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  networking.hostName = "gregor-nix"; # Define your hostname.
 
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;

@@ -24,7 +24,7 @@ in
   # changes in each release.
   home.stateVersion = "26.05";
   home.packages = with pkgs; [
-#    logseq
+    #    logseq
     ncdu
     ente-desktop
     bitwarden-cli
@@ -47,6 +47,7 @@ in
   ];
   programs = {
     rbw.enable = true;
+    git-credential-oauth.enable = true;
     git = {
       enable = true;
       settings = {
