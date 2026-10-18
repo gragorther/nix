@@ -75,7 +75,7 @@
       ];
     in
     {
-      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.nixtop = nixpkgs.lib.nixosSystem {
         modules = [ ./hosts/laptop ] ++ sharedModules;
       };
       # NOTE: 'nixos' is the default hostname
