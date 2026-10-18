@@ -1,8 +1,13 @@
 { pkgs, ... }: {
   programs.vscodium = {
+    #package = pkgs.vscodium;
+    #haskell = {enable };
     enable = true;
     profiles.default = {
-      extensions = [ pkgs.vscode-extensions.jnoortheen.nix-ide ];
+      extensions = with pkgs.vscode-extensions; [
+        jnoortheen.nix-ide
+        haskell.haskell
+      ];
     };
     profiles.default.userSettings = {
       "workbench.startupEditor" = "none";
