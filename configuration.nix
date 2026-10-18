@@ -47,8 +47,9 @@
 
   sops = {
     hostPubKey = "age1eecfk9ncl6v76s49k72jegxheje5u5shf7tchll9w4pwdphjtgwsyas4pt";
-    defaultSopsFile = ./secrets.yaml;
+    defaultSopsFile = "/etc/secrets.yaml";
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    validateSopsFiles = false;
   };
   sops.secrets."dav" = {
     collect = {
@@ -95,14 +96,6 @@
   #boot.initrd.luks.reusePassphrases = true;
   boot.initrd.systemd.emergencyAccess = true;
 
-  boot.initrd.luks.devices = {
-    cryptroot1 = {
-      device = "/dev/disk/by-uuid/00190075-9188-46cc-8171-81ee1ac9e356";
-    };
-    cryptroot2 = {
-      device = "/dev/disk/by-uuid/b8731852-f20c-47c1-8cf9-4fde23761384";
-    };
-  };
   boot.initrd.systemd.enable = true;
 
   # Use latest kernel.

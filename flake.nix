@@ -84,10 +84,51 @@
         #        inherit inputs;
         #      };
       };
-      packages.x86_64-linux.collect-secrets = sopsidy.lib.buildSecretsCollector {
-        inherit pkgs;
-        hosts = self.nixosConfigurations;
-      };
+      # packages.x86_64-linux.collect-secrets = sopsidy.lib.buildSecretsCollector {
+      #   inherit pkgs;
+      #   hosts = self.nixosConfigurations;
+      # };
+      packages.x86_64-linux.collect-secrets =
+        let
+          sops_file = "/etc/secrets.yaml";
+
+          collector = sopsidy.lib.buildSecretsCollector {
+            inherit pkgs;
+            hosts = self.nixosConfigurations;
+          };
+
+          patched_collector =
+            pkgs.runCommand "collect-secrets-patched"
+              {
+                nativeBuildInputs = [
+                  pkgs.gnused
+                  pkgs.gnugrep
+                ];
+              }
+              ''
+                if ! grep -Eq -- \
+                  "--filename-override [']['] /dev/stdin > ['][']" \
+                  ${collector}/bin/collect-secrets; then
+                  echo "Unexpected Sopsidy script format; refusing to patch" >&2
+                  exit 1
+                fi
+
+                mkdir -p "$out/bin"
+
+                sed -E \
+                  "s|--filename-override [']['] /dev/stdin > ['][']|--filename-override '${sops_file}' /dev/stdin > '${sops_file}'|" \
+                  ${collector}/bin/collect-secrets \
+                  > "$out/bin/collect-secrets"
+
+                chmod +x "$out/bin/collect-secrets"
+              '';
+        in
+        pkgs.writeShellApplication {
+          name = "collect-secrets";
+          text = ''
+            exec ${patched_collector}/bin/collect-secrets "$@"
+          '';
+        };
     };
 
 }

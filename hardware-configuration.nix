@@ -30,6 +30,14 @@
     device = "/dev/mapper/nixos-root";
     fsType = "btrfs";
   };
+  boot.initrd.luks.devices = {
+    cryptroot1 = {
+      device = "/dev/disk/by-uuid/00190075-9188-46cc-8171-81ee1ac9e356";
+    };
+    cryptroot2 = {
+      device = "/dev/disk/by-uuid/b8731852-f20c-47c1-8cf9-4fde23761384";
+    };
+  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/38EE-B21C";
