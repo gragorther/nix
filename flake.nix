@@ -28,6 +28,10 @@
     };
     sopsidy.url = "github:timewave-computer/sopsidy";
     sopsidy.inputs.nixpkgs.follows = "nixpkgs";
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
@@ -37,6 +41,7 @@
       plasma-manager,
       prismix,
       sopsidy,
+      stylix,
       ...
     }:
     let
@@ -72,10 +77,12 @@
         ./configuration.nix
         home-manager.nixosModules.default
         homeManagerModule
+        stylix.nixosModules.stylix
       ];
     in
     {
       nixosConfigurations.nixtop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
         modules = [ ./hosts/laptop ] ++ sharedModules;
       };
       # NOTE: 'nixos' is the default hostname

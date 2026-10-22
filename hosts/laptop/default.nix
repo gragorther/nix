@@ -1,1 +1,1 @@
-{ networking.hostName = "nixtop"; }
+{ imports = [./hardware-configuration.nix]; networking.hostName = "nixtop"; }
