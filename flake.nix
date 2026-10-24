@@ -28,6 +28,7 @@
     };
     sopsidy.url = "github:timewave-computer/sopsidy";
     sopsidy.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs-pr.url = "github:NixOS/nixpkgs/pull/516682/head";
   };
   outputs =
     inputs@{
@@ -37,17 +38,23 @@
       plasma-manager,
       prismix,
       sopsidy,
+      nixpkgs-pr,
       ...
     }:
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
       };
+      pkgs-pr = import nixpkgs-pr { system = "x86_64-linux"; };
+
       homeManagerModule = {
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
-          extraSpecialArgs = { inherit inputs; }; # If you want access to inputs in your home.nix
+          extraSpecialArgs = {
+            inherit inputs;
+            inherit pkgs-pr;
+          }; # If you want access to inputs in your home.nix
           users.gregor = ./home.nix; # replace <USERNAME> with your actual username
           sharedModules = [
             plasma-manager.homeModules.plasma-manager
