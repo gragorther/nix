@@ -33,6 +33,7 @@ in
     [
       tor-browser
       kdePackages.isoimagewriter
+      kdePackages.ghostwriter
       #    logseq
       ncdu
       ente-desktop
@@ -53,6 +54,8 @@ in
       mpv
       nixfmt
       nixd
+      dig
+      bat
     ]
     ++ [ pkgs-pr.logseq_2 ];
   programs = {
