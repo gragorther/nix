@@ -3,12 +3,17 @@
   pkgs,
   osConfig,
   lib,
+  pkgs-pr,
   ...
 }:
 let
   me = {
     email = "gregor@gregtech.eu";
   };
+  firefox_desktop = pkgs.runCommand "firefox-desktop" { } ''
+    sed '/^StartupWMClass=firefox$/d' \
+      ${pkgs.firefox}/share/applications/firefox.desktop > "$out"
+  '';
   #  lib = pkgs.lib;
 in
 {
@@ -23,28 +28,36 @@ in
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "26.05";
-  home.packages = with pkgs; [
-    #    logseq
-    ncdu
-    ente-desktop
-    bitwarden-cli
-    bitwarden-desktop
-    feishin
-    openssl
-    signal-desktop
-    gparted
-    #    prismlauncher
-    whois
-    ghc
-    cabal-install
-    haskell-language-server
-    haskellPackages.hlint
-    libreoffice-qt
-    hunspell
-    mpv
-    nixfmt
-    nixd
-  ];
+  home.packages =
+    with pkgs;
+    [
+      tor-browser
+      kdePackages.isoimagewriter
+      kdePackages.ghostwriter
+      #    logseq
+      ncdu
+      ente-desktop
+      bitwarden-cli
+      bitwarden-desktop
+      feishin
+      openssl
+      signal-desktop
+      gparted
+      #    prismlauncher
+      whois
+      ghc
+      cabal-install
+      haskell-language-server
+      haskellPackages.hlint
+      libreoffice-qt
+      hunspell
+      mpv
+      nixfmt
+      nixd
+      dig
+      bat
+    ]
+    ++ [ pkgs-pr.logseq_2 ];
   programs = {
     rbw.enable = true;
     git-credential-oauth.enable = true;
@@ -75,4 +88,5 @@ in
   home.sessionVariables = {
     SSH_AUTH_SOCK = "/home/gregor/.bitwarden-ssh-agent.sock";
   };
+  xdg.dataFile."applications/firefox.desktop".source = firefox_desktop;
 }
