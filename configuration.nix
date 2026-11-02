@@ -106,7 +106,7 @@ rec {
   #boot.initrd.luks.reusePassphrases = true;
   boot.initrd.systemd.emergencyAccess = true;
 
-  boot.initrd.systemd.enable = true;
+  #boot.initrd.systemd.enable = true;
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
