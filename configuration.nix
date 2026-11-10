@@ -11,11 +11,19 @@
 
 rec {
 
-  stylix.enable = true;
+  stylix.enable = false;
   stylix = {
     polarity = "dark";
     image = ./beri.jpg;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+  fonts = {
+    sizes = {
+      desktop      = 10; # Status bars, panel elements
+      applications = 11; # Text inside app windows
+      terminal     = 12; # Terminal font size
+      popups       = 10; # Tooltips and notifications
+    };
+  };
   };
 
   networking.networkmanager.dns = "none";
