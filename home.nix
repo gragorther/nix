@@ -31,6 +31,7 @@ in
   home.packages =
     with pkgs;
     [
+      calc
       tor-browser
       kdePackages.isoimagewriter
       kdePackages.ghostwriter
