@@ -29,7 +29,6 @@ rec {
     })
   ];
   stylix.enable = false;
->>>>>>> 47f087c613928c2ff063c349d78b4437744a253a
   stylix = {
     polarity = "dark";
     image = ./beri.jpg;
