@@ -31,6 +31,7 @@ in
   home.packages =
     with pkgs;
     [
+      steamcmd
       calc
       tor-browser
       kdePackages.isoimagewriter
