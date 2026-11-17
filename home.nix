@@ -15,6 +15,16 @@ let
       ${pkgs.firefox}/share/applications/firefox.desktop > "$out"
   '';
   #  lib = pkgs.lib;
+  dedrmTools = pkgs.fetchzip {
+    url = "https://github.com/noDRM/DeDRM_tools/releases/download/v10.0.9/DeDRM_tools_10.0.9.zip";
+    stripRoot = false;
+    hash = "sha256-3gMzURkI6U7tU3CDiK4Y81xGH0YxrMIVt2dt3JRpih4=";
+  };
+
+  calibrePlugins = pkgs.runCommand "calibre-dedrm-plugin" { } ''
+    mkdir -p "$out"
+    ln -s ${dedrmTools}/DeDRM_plugin.zip "$out/DeDRM_plugin.zip"
+  '';
 in
 {
   imports = lib.filesystem.listFilesRecursive ./modules;
@@ -59,6 +69,16 @@ in
     ]
     ++ [ pkgs-pr.logseq_2 ];
   programs = {
+    calibre = {
+
+      package = pkgs.calibre.override {
+        speechSupport = false;
+      };
+      enable = true;
+      plugins = [
+        calibrePlugins
+      ];
+    };
     rbw.enable = true;
     git-credential-oauth.enable = true;
     git = {
