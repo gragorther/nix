@@ -28,11 +28,20 @@ rec {
       ];
     })
   ];
-  stylix.enable = true;
+  stylix.enable = false;
+>>>>>>> 47f087c613928c2ff063c349d78b4437744a253a
   stylix = {
     polarity = "dark";
     image = ./beri.jpg;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+  fonts = {
+    sizes = {
+      desktop      = 10; # Status bars, panel elements
+      applications = 11; # Text inside app windows
+      terminal     = 12; # Terminal font size
+      popups       = 10; # Tooltips and notifications
+    };
+  };
   };
 
   networking.networkmanager.dns = "none";
@@ -123,7 +132,7 @@ rec {
   #boot.initrd.luks.reusePassphrases = true;
   boot.initrd.systemd.emergencyAccess = true;
 
-  boot.initrd.systemd.enable = true;
+  #boot.initrd.systemd.enable = true;
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
