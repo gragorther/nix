@@ -7,6 +7,7 @@
       extensions = with pkgs.vscode-extensions; [
         jnoortheen.nix-ide
         haskell.haskell
+	ms-vscode.cpptools-extension-pack
       ];
     };
     profiles.default.userSettings = {
