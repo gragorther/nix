@@ -42,14 +42,6 @@ rec {
     };
   };
   };
-
-  networking.networkmanager.dns = "none";
-  networking.nameservers = [
-    "1.1.1.1"
-    "8.8.8.8"
-  ];
-  networking.networkmanager.insertNameservers = networking.nameservers;
-
   nixpkgs.config.allowUnfree = true;
   #  programs.firefox.enable = true;
   programs.steam.enable = true;
