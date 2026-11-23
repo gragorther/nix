@@ -42,6 +42,7 @@ in
     with pkgs;
     [
       traceroute
+      jetbrains.clion
       steamcmd
       calc
       tor-browser

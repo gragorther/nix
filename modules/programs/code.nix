@@ -8,9 +8,11 @@
         jnoortheen.nix-ide
         haskell.haskell
 	ms-vscode.cpptools-extension-pack
+	ms-vscode.cpptools
       ];
     };
     profiles.default.userSettings = {
+    "C_Cpp.intelliSenseEngine" = "default";
       "workbench.startupEditor" = "none";
       "nix.enableLanguageServer" = true;
       "nix.formatterPath" = "nixfmt";
