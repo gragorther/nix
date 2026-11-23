@@ -41,6 +41,7 @@ in
   home.packages =
     with pkgs;
     [
+      jetbrains.clion
       steamcmd
       calc
       tor-browser
