@@ -41,6 +41,7 @@ in
   home.packages =
     with pkgs;
     [
+      ladybird
       traceroute
       jetbrains.clion
       steamcmd
