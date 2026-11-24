@@ -7,8 +7,6 @@
       extensions = with pkgs.vscode-extensions; [
         jnoortheen.nix-ide
         haskell.haskell
-        ms-vscode.cpptools-extension-pack
-        ms-vscode.cpptools
         llvm-vs-code-extensions.vscode-clangd
       ];
     };
