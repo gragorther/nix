@@ -7,12 +7,13 @@
       extensions = with pkgs.vscode-extensions; [
         jnoortheen.nix-ide
         haskell.haskell
-	ms-vscode.cpptools-extension-pack
-	ms-vscode.cpptools
+        ms-vscode.cpptools-extension-pack
+        ms-vscode.cpptools
+        llvm-vs-code-extensions.vscode-clangd
       ];
     };
     profiles.default.userSettings = {
-    "C_Cpp.intelliSenseEngine" = "default";
+      "C_Cpp.intelliSenseEngine" = "default";
       "workbench.startupEditor" = "none";
       "nix.enableLanguageServer" = true;
       "nix.formatterPath" = "nixfmt";

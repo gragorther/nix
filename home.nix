@@ -43,7 +43,6 @@ in
     [
       ladybird
       traceroute
-      jetbrains.clion
       steamcmd
       calc
       tor-browser
